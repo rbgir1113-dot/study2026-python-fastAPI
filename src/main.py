@@ -4,7 +4,7 @@ from app.infrastructure.oracle import engine, Base
 from app.infrastructure.redis import start_redis_client
 from app.security.cors import setup_cors
 from app.security.security_headers import setup_security
-from app.apis import member_api
+from app.apis import member_api, auth_api
 
 import app.models
 
@@ -13,10 +13,10 @@ async def lifespan(app: FastAPI):
     async with engine.begin() as conn:
         await conn.run_sync(Base.metadata.create_all)
         print("Oracle DB 연결 성공!")
-
+    
     async with start_redis_client(app):
         print("Redis DB 연결 성공!")
-
+        
     yield
 
 # Swagger
@@ -32,5 +32,9 @@ app = FastAPI(
 setup_cors(app)
 setup_security(app)
 
-app.include_router(member_api.router, prefix="/members", tags=["members"])
+@app.get("/")
+def health_check():
+    return {"message": "Hello, world!"}
 
+app.include_router(member_api.router, prefix="/members", tags=["members"])
+app.include_router(auth_api.router, prefix="/auth", tags=["/auth"])

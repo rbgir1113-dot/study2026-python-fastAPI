@@ -33,10 +33,8 @@ class SocialMemberCreateDTO(BaseModel):
   member_created_at: datetime | None=None
 
 class MemberUpdateDTO(BaseModel):
-  member_password: str | None=None
   member_name: str | None=None
   member_age: int | None=None
-  member_picture: str | None="/members/default.jpg"
 
 class MemberResponseDTO(BaseModel):
   id: int

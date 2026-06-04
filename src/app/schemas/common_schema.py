@@ -7,5 +7,5 @@ class ApiResponseDTO(BaseModel, Generic[T]):
   success : bool
   message : str
   # None=None이 Optional 처리방법
-  date: T | None=None #Optional
+  data: T | None=None #Optional
   
