@@ -55,6 +55,8 @@ class MemberClaimsDTO(BaseModel):
   member_email: str
   member_provider: MemberProvider | None=None
 
+
+# 게시판용
 class MemberSummaryDTO(BaseModel):
   member_email: str
   member_name: str | None=None
